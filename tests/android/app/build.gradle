@@ -37,14 +37,14 @@ def enableSeparateBuildPerCPUArchitecture = false
 def useIntlJsc = false
 
 android {
-  compileSdkVersion 28
+  compileSdkVersion rootProject.ext.compileSdkVersion
   aaptOptions {
     noCompress "tflite"
   }
   defaultConfig {
     applicationId "com.invertase.testing"
-    minSdkVersion 21
-    targetSdkVersion 28
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
     versionCode 1
     versionName "1.0"
 
@@ -99,33 +99,22 @@ android {
     }
   }
 
-  packagingOptions {
-    exclude 'META-INF/proguard/androidx-annotations.pro'
-    exclude 'META-INF/-no-jdk.kotlin_module'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/NOTICE'
-    exclude 'META-INF/LICENSE'
-    exclude 'META-INF/LICENSE.txt'
-    exclude 'META-INF/NOTICE.txt'
-    pickFirst "lib/armeabi-v7a/libc++_shared.so"
-    pickFirst "lib/arm64-v8a/libc++_shared.so"
-    pickFirst "lib/x86/libc++_shared.so"
-    pickFirst "lib/x86_64/libc++_shared.so"
-  }
-}
-
-// Can probably remove this when tests upgrades to react-native 0.63
-configurations.all {
-    resolutionStrategy {
-        force "com.facebook.soloader:soloader:0.8.2"
-    }
+  // packagingOptions {
+  //   exclude 'META-INF/proguard/androidx-annotations.pro'
+  //   exclude 'META-INF/-no-jdk.kotlin_module'
+  //   exclude 'META-INF/DEPENDENCIES'
+  //   exclude 'META-INF/NOTICE'
+  //   exclude 'META-INF/LICENSE'
+  //   exclude 'META-INF/LICENSE.txt'
+  //   exclude 'META-INF/NOTICE.txt'
+  // }
 }
 
 dependencies {
   implementation fileTree(include: ['*.jar'], dir: 'libs')
   //noinspection GradleDynamicVersion
   implementation 'com.facebook.react:react-native:+'
-  implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+  implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
   // JSC from node_modules
   implementation jscFlavor
